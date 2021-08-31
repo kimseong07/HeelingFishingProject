@@ -15,12 +15,15 @@ public class Fishing : MonoBehaviour
     public int randf = 0;
     public int randc = 0;
 
+    public float maxLength = 70f;
     public float length = 0f;
+
+    public float maxPull = 0.47f;
+    public float pulllength = 0.2f;
 
     public GameObject panel;
     public SpriteRenderer signal;
 
-    public Text text;
     void Start()
     {
         player = FindObjectOfType<PlayerMove>();
@@ -30,9 +33,30 @@ public class Fishing : MonoBehaviour
         cfishing = false;
         randc = 1;
         randf = 0;
+        length = 0.1f;
     }
 
     void Update()
+    {
+        ReadyFishing();
+
+        StartFishing();
+
+        if (reel.wheelAngle <= -360)
+        {
+            length -= pulllength;
+
+            reel.wheelAngle = 0;
+        }
+
+        if(length <= 0)
+        {
+            UnsetPanel();
+        }
+
+    }
+
+    public void ReadyFishing()
     {
         if (cfishing && Input.GetKeyDown(KeyCode.Space))
         {
@@ -49,22 +73,24 @@ public class Fishing : MonoBehaviour
                 fishing = true;
             }
         }
+    }
 
+    public void StartFishing()
+    {
         if (fishing)
         {
-            if (time < 5)
-            {
-                time += Time.deltaTime;
-            }
+            length += Time.deltaTime / 2f;
 
-            if(time >= 3f && time < 5f)
+            pulllength += Time.deltaTime / 600; 
+
+            if (time >= 3f && time < 5f)
             {
                 randf = Random.Range(0, 4);
                 randc = Random.Range(0, 4);
                 time = 0f;
             }
 
-            if(randc == randf)
+            if (randc == randf)
             {
                 signal.color = Color.red;
             }
@@ -73,31 +99,50 @@ public class Fishing : MonoBehaviour
                 signal.color = Color.green;
             }
 
-            if(randf == randc && Input.GetMouseButton(0))
+            if (time < 5)
             {
-                Afhishing();
+                time += Time.deltaTime;
+            }
+
+            if (randf == randc && Input.GetMouseButtonDown(1))
+            {
+                SetPanel();
+
+                length = Random.Range(7, 40);
+
+                pulllength = 0.15f;
+
                 time = 5f;
             }
-        }
 
+            if(randc != randf && length > maxLength - 10f)
+            {
+                length = 0f;
+            }
+
+            if(length >= maxLength)
+            {
+                UnsetPanel();
+            }
+
+            if(pulllength >= maxPull)
+            {
+                pulllength = 0.48f;
+            }
+        }
     }
 
-    public void Afhishing()
+    public void SetPanel()
     {
         panel.SetActive(true);
-        length += Time.deltaTime;
-
-        if(reel.wheelAngle >= 360)
-        {
-
-        }
     }
-    public void Efhishing()
+    public void UnsetPanel()
     {
         panel.SetActive(false);
         time = 0f;
         randc = 1;
         randf = 0;
+        pulllength = 0.3f;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
