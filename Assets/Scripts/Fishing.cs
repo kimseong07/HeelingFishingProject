@@ -10,6 +10,7 @@ public class Fishing : MonoBehaviour
 
     public bool cfishing;
     public bool fishing;
+    public bool bite;
 
     public float time = 0f;
     public int randf = 0;
@@ -17,12 +18,14 @@ public class Fishing : MonoBehaviour
 
     public float maxLength = 70f;
     public float length = 0f;
+    public float tention = 0f;
 
     public float maxPull = 0.47f;
     public float pulllength = 0.2f;
 
     public GameObject panel;
     public SpriteRenderer signal;
+    public Image gauge;
 
     void Start()
     {
@@ -31,6 +34,8 @@ public class Fishing : MonoBehaviour
 
         fishing = false;
         cfishing = false;
+        bite = true;
+
         randc = 1;
         randf = 0;
         length = 0.1f;
@@ -46,6 +51,8 @@ public class Fishing : MonoBehaviour
         {
             length -= pulllength;
 
+            tention += 0.03f;
+                
             reel.wheelAngle = 0;
         }
 
@@ -81,7 +88,16 @@ public class Fishing : MonoBehaviour
         {
             length += Time.deltaTime / 2f;
 
-            pulllength += Time.deltaTime / 600; 
+            tention -= Time.deltaTime / 15f;
+
+            gauge.fillAmount = tention;
+
+            pulllength += Time.deltaTime / 600f; 
+
+            if(tention <= 0)
+            {
+                tention = 0;
+            }
 
             if (time >= 3f && time < 5f)
             {
@@ -104,7 +120,7 @@ public class Fishing : MonoBehaviour
                 time += Time.deltaTime;
             }
 
-            if (randf == randc && Input.GetMouseButtonDown(1))
+            if (randf == randc && Input.GetMouseButtonDown(1) && bite)
             {
                 SetPanel();
 
@@ -113,6 +129,10 @@ public class Fishing : MonoBehaviour
                 pulllength = 0.15f;
 
                 time = 5f;
+
+                tention = 0.5f;
+
+                bite = false;
             }
 
             if(randc != randf && length > maxLength - 10f)
@@ -139,10 +159,14 @@ public class Fishing : MonoBehaviour
     public void UnsetPanel()
     {
         panel.SetActive(false);
+
         time = 0f;
         randc = 1;
         randf = 0;
         pulllength = 0.3f;
+        tention = 0.5f;
+
+        bite = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
