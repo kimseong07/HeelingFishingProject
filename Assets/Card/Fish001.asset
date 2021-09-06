@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b61c48739bca64f44ba783b9283f1575, type: 3}
+  m_Name: Fish001
+  m_EditorClassIdentifier: 
+  id: Silversillago
+  tagString: "\uBCF4\uB9AC\uBA78"
+  tagString2: 
+  usable: 0
+  disposable: 0
+  power: {fileID: 11400000, guid: f7aa73cdd1226aa44ad9d53b441be4c5, type: 2}

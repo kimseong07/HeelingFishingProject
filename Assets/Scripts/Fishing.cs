@@ -8,6 +8,7 @@ public class Fishing : MonoBehaviour
     PlayerMove player;
     Reel reel;
 
+
     public bool cfishing;
     public bool fishing;
     public bool bite;

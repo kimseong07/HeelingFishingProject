@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93e486e7232939b40a1259072a4a7eb6, type: 3}
   m_Name: Silversillago
   m_EditorClassIdentifier: 
-  illust: {fileID: 0}
-  cardName: 
-  cardDescription: 
-  seqOnUse: 
+  illust: {fileID: 21300000, guid: 407a8a3371de12e4cbbc7370cf4f7245, type: 3}
+  cardName: "\uBCF4\uB9AC\uBA78"
+  cardDescription: "\uBCF4\uB9AC\uBA78"
+  seqOnUse: 1
   seqOnDraw: 
   seqOnDrop: 
   seqTurnEnd: 
