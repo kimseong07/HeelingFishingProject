@@ -12,15 +12,21 @@ public class PlayerMove : MonoBehaviour
     public Vector3 moveVelocity;
 
     public float playerTime = 0f;
+
+    public GameObject Inventory;
+    bool isOpenInventory;
     void Start()
     {
         rigid2D = GetComponent<Rigidbody2D>();
         cam = FindObjectOfType<CameraMove>();
+
+        isOpenInventory = false;
     }
 
     void Update()
     {
         Move();
+        //OpenBook();
     }
 
     void Move()
@@ -45,6 +51,23 @@ public class PlayerMove : MonoBehaviour
         }
 
         transform.position += moveVelocity * playerSpeed * Time.deltaTime;
+    }
+
+    void OpenBook()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (!isOpenInventory)
+            {
+                Inventory.SetActive(true);
+                isOpenInventory = true;
+            }
+            else if (isOpenInventory)
+            {
+                Inventory.SetActive(false);
+                isOpenInventory = false;
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
