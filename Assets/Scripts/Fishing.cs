@@ -23,6 +23,8 @@ public class Fishing : MonoBehaviour
     public float maxPull = 0.47f;
     public float pulllength = 0.2f;
 
+    public int fishCount = 0;
+
     public GameObject panel;
     public SpriteRenderer signal;
     public Image gauge;
@@ -165,6 +167,7 @@ public class Fishing : MonoBehaviour
         randf = 0;
         pulllength = 0.3f;
         tention = 0.5f;
+        fishCount = 0;
 
         bite = true;
     }

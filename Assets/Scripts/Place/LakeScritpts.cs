@@ -5,6 +5,11 @@ using UnityEngine;
 public class LakeScritpts : MonoBehaviour
 {
     Fishing fishing;
+    public Transform player;
+
+    public List<GameObject> fishList = new List<GameObject>();
+
+
     private void Awake()
     {
         fishing = FindObjectOfType<Fishing>();
@@ -20,7 +25,12 @@ public class LakeScritpts : MonoBehaviour
     {
         if(fishing.length <= 0)
         {
-
+            if (fishing.fishCount < 1)
+            {
+                int fishNum = Random.Range(0, fishList.Count + 1);
+                Instantiate(fishList[fishNum], player);
+                fishing.fishCount++;
+            }
         }
     }
 }
