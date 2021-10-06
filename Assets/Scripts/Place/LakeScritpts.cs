@@ -28,7 +28,7 @@ public class LakeScritpts : MonoBehaviour
             if (fishing.fishCount < 1)
             {
                 int fishNum = Random.Range(0, fishList.Count + 1);
-                Instantiate(fishList[fishNum], player);
+                Instantiate(fishList[fishNum]);
                 fishing.fishCount++;
             }
         }

@@ -25,7 +25,7 @@ public class Fishing : MonoBehaviour
 
     public int fishCount = 0;
 
-    public GameObject panel;
+    public CanvasGroup fishingC;
     public SpriteRenderer signal;
     public Image gauge;
 
@@ -73,12 +73,14 @@ public class Fishing : MonoBehaviour
             {
                 player.playerSpeed = 4f;
                 signal.gameObject.SetActive(false);
+                signal.color = new Color(0,0,0,0);
                 fishing = false;
             }
             else if (!fishing)
             {
                 player.playerSpeed = 0f;
                 signal.gameObject.SetActive(true);
+                
                 fishing = true;
             }
         }
@@ -156,11 +158,11 @@ public class Fishing : MonoBehaviour
 
     public void SetPanel()
     {
-        panel.SetActive(true);
+        fishingC.alpha = 1;
     }
     public void UnsetPanel()
     {
-        panel.SetActive(false);
+        fishingC.alpha = 0;
 
         time = 0f;
         randc = 1;

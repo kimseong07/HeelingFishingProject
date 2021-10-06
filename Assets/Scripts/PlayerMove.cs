@@ -6,7 +6,6 @@ public class PlayerMove : MonoBehaviour
 {
     public float playerSpeed = 4f;
     public SpriteRenderer playerSprite;
-    Rigidbody2D rigid2D;
 
     CameraMove cam;
 
@@ -14,20 +13,17 @@ public class PlayerMove : MonoBehaviour
 
     public float playerTime = 0f;
 
-    public GameObject Inventory;
-    bool isOpenInventory;
     void Start()
     {
-        rigid2D = GetComponent<Rigidbody2D>();
         cam = FindObjectOfType<CameraMove>();
 
-        isOpenInventory = false;
+
     }
 
     void Update()
     {
         Move();
-        //OpenBook();
+
     }
 
     void Move()
@@ -37,10 +33,12 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetAxisRaw("Horizontal") < 0)
         {
             moveVelocity = Vector3.left;
+            transform.rotation = new Quaternion(0, 0, 0, 0);
         }
         else if(Input.GetAxisRaw("Horizontal") > 0)
         {
             moveVelocity = Vector3.right;
+            transform.rotation = new Quaternion(0, 180, 0, 0);
         }
         else if(Input.GetAxisRaw("Vertical") > 0)
         {
@@ -54,22 +52,7 @@ public class PlayerMove : MonoBehaviour
         transform.position += moveVelocity * playerSpeed * Time.deltaTime;
     }
 
-    void OpenBook()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (!isOpenInventory)
-            {
-                Inventory.SetActive(true);
-                isOpenInventory = true;
-            }
-            else if (isOpenInventory)
-            {
-                Inventory.SetActive(false);
-                isOpenInventory = false;
-            }
-        }
-    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
