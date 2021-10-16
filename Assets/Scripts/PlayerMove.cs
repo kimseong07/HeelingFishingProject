@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     public float playerSpeed = 4f;
-    public SpriteRenderer playerSprite;
 
     CameraMove cam;
 
@@ -13,11 +12,24 @@ public class PlayerMove : MonoBehaviour
 
     public float playerTime = 0f;
 
+    public GameObject fhishingFloat;
+    public float throwPower;
+
     void Start()
     {
         cam = FindObjectOfType<CameraMove>();
 
+    }
 
+    private void FixedUpdate()
+    {
+        Vector2 maxTrn = new Vector2(fhishingFloat.transform.position.x, this.transform.position.y);
+
+        if (fhishingFloat.transform.position.y <= this.transform.position.y)
+        {
+            fhishingFloat.transform.position = maxTrn;
+            fhishingFloat.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        }
     }
 
     void Update()
@@ -50,6 +62,14 @@ public class PlayerMove : MonoBehaviour
         }
 
         transform.position += moveVelocity * playerSpeed * Time.deltaTime;
+    }
+
+    public void Fhishingfloat()
+    {
+        Vector2 power = new Vector2(0, throwPower);
+        fhishingFloat.GetComponent<Rigidbody2D>().gravityScale = 1;
+        fhishingFloat.GetComponent<Rigidbody2D>().AddForce(power, ForceMode2D.Impulse);
+        fhishingFloat.GetComponent<Rigidbody2D>().AddForce(Vector2.right * throwPower * 30f);
     }
 
 

@@ -14,21 +14,19 @@ public class LakeScritpts : MonoBehaviour
     {
         fishing = FindObjectOfType<Fishing>();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
-        if(fishing.length <= 0)
+        SpawnFish();
+    }
+    public void SpawnFish()
+    {
+        if (fishing.length <= 0)
         {
             if (fishing.fishCount < 1)
             {
                 int fishNum = Random.Range(0, fishList.Count + 1);
-                Instantiate(fishList[fishNum]);
+
                 fishing.fishCount++;
             }
         }

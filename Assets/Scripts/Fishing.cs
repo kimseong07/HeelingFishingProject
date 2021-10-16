@@ -3,27 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Fishing : MonoBehaviour
+public class Fishing : BaseFishingScript
 {
+    public GameObject fishingFloat;
     PlayerMove player;
     Reel reel;
-
-    public bool cfishing;
-    public bool fishing;
-    public bool bite;
 
     public float time = 0f;
     public int randf = 0;
     public int randc = 0;
-
-    public float maxLength = 70f;
-    public float length = 0f;
-    public float tention = 0f;
-
-    public float maxPull = 0.47f;
-    public float pulllength = 0.2f;
-
-    public int fishCount = 0;
 
     public CanvasGroup fishingC;
     public SpriteRenderer signal;
@@ -48,6 +36,8 @@ public class Fishing : MonoBehaviour
         ReadyFishing();
 
         StartFishing();
+
+        EndFishing();
 
         if (reel.wheelAngle <= -360)
         {
@@ -74,6 +64,8 @@ public class Fishing : MonoBehaviour
                 player.playerSpeed = 4f;
                 signal.gameObject.SetActive(false);
                 signal.color = new Color(0,0,0,0);
+                
+                
                 fishing = false;
             }
             else if (!fishing)
@@ -81,8 +73,11 @@ public class Fishing : MonoBehaviour
                 player.playerSpeed = 0f;
                 signal.gameObject.SetActive(true);
                 
+                
                 fishing = true;
             }
+            
+            player.Fhishingfloat();
         }
     }
 
@@ -94,13 +89,18 @@ public class Fishing : MonoBehaviour
 
             tention -= Time.deltaTime / 15f;
 
-            gauge.fillAmount = tention;
+            pulllength += Time.deltaTime / 600f;
 
-            pulllength += Time.deltaTime / 600f; 
+            gauge.fillAmount = tention;
 
             if(tention <= 0)
             {
                 tention = 0;
+            }
+
+            if (time < 5)
+            {
+                time += Time.deltaTime;
             }
 
             if (time >= 3f && time < 5f)
@@ -119,11 +119,6 @@ public class Fishing : MonoBehaviour
                 signal.color = Color.green;
             }
 
-            if (time < 5)
-            {
-                time += Time.deltaTime;
-            }
-
             if (randf == randc && Input.GetMouseButtonDown(1) && bite)
             {
                 SetPanel();
@@ -139,27 +134,34 @@ public class Fishing : MonoBehaviour
                 bite = false;
             }
 
-            if(randc != randf && length > maxLength - 10f)
-            {
-                length = 0f;
-            }
 
-            if(length >= maxLength)
-            {
-                UnsetPanel();
-            }
-
-            if(pulllength >= maxPull)
-            {
-                pulllength = 0.48f;
-            }
         }
     }
+
+    public void EndFishing()
+    {
+        if (length >= maxLength)
+        {
+            UnsetPanel();
+        }
+
+        if (randc != randf && length > maxLength - 10f)
+        {
+            length = 0f;
+        }
+
+        if (pulllength >= maxPull)
+        {
+            pulllength = 0.48f;
+        }
+    }
+
 
     public void SetPanel()
     {
         fishingC.alpha = 1;
     }
+
     public void UnsetPanel()
     {
         fishingC.alpha = 0;
