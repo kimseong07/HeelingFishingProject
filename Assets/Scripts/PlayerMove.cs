@@ -69,10 +69,22 @@ public class PlayerMove : MonoBehaviour
         Vector2 power = new Vector2(0, throwPower);
         fhishingFloat.GetComponent<Rigidbody2D>().gravityScale = 1;
         fhishingFloat.GetComponent<Rigidbody2D>().AddForce(power, ForceMode2D.Impulse);
-        fhishingFloat.GetComponent<Rigidbody2D>().AddForce(Vector2.right * throwPower * 30f);
+        if (this.gameObject.transform.rotation.y == 180)
+        {
+            fhishingFloat.GetComponent<Rigidbody2D>().AddForce(Vector2.right * throwPower * 30f);
+        }
+        else
+        {
+            fhishingFloat.GetComponent<Rigidbody2D>().AddForce(Vector2.left * throwPower * 30f);
+        }
     }
 
-
+    public void SetFhishingfloat(Transform circle)
+    {
+        fhishingFloat.GetComponent<Rigidbody2D>().gravityScale = 0;
+        fhishingFloat.transform.position = new Vector2(circle.position.x, circle.position.y);
+        fhishingFloat.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

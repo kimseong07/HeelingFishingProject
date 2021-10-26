@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Fishing : BaseFishingScript
 {
+    public GameObject floatPos;
     public GameObject fishingFloat;
     PlayerMove player;
     Reel reel;
@@ -47,12 +48,10 @@ public class Fishing : BaseFishingScript
                 
             reel.wheelAngle = 0;
         }
-
         if(length <= 0)
         {
             UnsetPanel();
         }
-
     }
 
     public void ReadyFishing()
@@ -64,20 +63,20 @@ public class Fishing : BaseFishingScript
                 player.playerSpeed = 4f;
                 signal.gameObject.SetActive(false);
                 signal.color = new Color(0,0,0,0);
-                
-                
+
+                player.SetFhishingfloat(floatPos.gameObject.transform);
+
                 fishing = false;
             }
             else if (!fishing)
             {
                 player.playerSpeed = 0f;
                 signal.gameObject.SetActive(true);
-                
-                
+
+                player.Fhishingfloat();
+
                 fishing = true;
             }
-            
-            player.Fhishingfloat();
         }
     }
 

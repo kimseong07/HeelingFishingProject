@@ -17,9 +17,10 @@ public class LakeScritpts : MonoBehaviour
 
     void Update()
     {
-        SpawnFish();
+        
     }
-    public void SpawnFish()
+    
+    IEnumerator SpawnFish()
     {
         if (fishing.length <= 0)
         {
@@ -30,5 +31,7 @@ public class LakeScritpts : MonoBehaviour
                 fishing.fishCount++;
             }
         }
+
+        yield return new WaitForSeconds(1f);
     }
 }
