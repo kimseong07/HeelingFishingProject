@@ -14491,6 +14491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 79325354}
+  fishingfloatPos: {fileID: 1386299040}
   fishList:
   - {fileID: 1105227965747589470, guid: 5c8641c190c65614ab8ba409e4538001, type: 3}
   - {fileID: 1105227965747589470, guid: de5043eb81c37b6409d1e6912c0849cc, type: 3}

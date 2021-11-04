@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class Fishing : BaseFishingScript
 {
+    public static Fishing instance;
+
+
     public GameObject floatPos;
-    public GameObject fishingFloat;
     PlayerMove player;
     Reel reel;
 
@@ -17,6 +19,15 @@ public class Fishing : BaseFishingScript
     public CanvasGroup fishingC;
     public SpriteRenderer signal;
     public Image gauge;
+
+    private void Awake()
+    {
+        if(instance != null)
+        {
+            Debug.Log("다수의 Fishing이 실행중입니다");
+        }
+        instance = this;
+    }
 
     void Start()
     {
@@ -48,9 +59,15 @@ public class Fishing : BaseFishingScript
                 
             reel.wheelAngle = 0;
         }
+
         if(length <= 0)
         {
             UnsetPanel();
+        }
+
+        if (Input.GetKey(KeyCode.T))
+        {
+            length -= pulllength;
         }
     }
 
@@ -63,6 +80,9 @@ public class Fishing : BaseFishingScript
                 player.playerSpeed = 4f;
                 signal.gameObject.SetActive(false);
                 signal.color = new Color(0,0,0,0);
+
+                randc = 1;
+                randf = 0;
 
                 player.SetFhishingfloat(floatPos.gameObject.transform);
 
@@ -149,7 +169,7 @@ public class Fishing : BaseFishingScript
             length = 0f;
         }
 
-        if (pulllength >= maxPull)
+        if (pulllength >= maxPull)   
         {
             pulllength = 0.48f;
         }

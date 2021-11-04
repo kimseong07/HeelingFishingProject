@@ -6,9 +6,19 @@ public class LakeScritpts : MonoBehaviour
 {
     Fishing fishing;
     public Transform player;
+    public Transform fishingfloatPos;
 
     public List<GameObject> fishList = new List<GameObject>();
 
+    private float instanceFishTime = 0.5f;
+
+    private void FixedUpdate()
+    {
+        if (instanceFishTime >= 0)
+        {
+            instanceFishTime = instanceFishTime - Time.deltaTime;
+        }
+    }
 
     private void Awake()
     {
@@ -17,21 +27,24 @@ public class LakeScritpts : MonoBehaviour
 
     void Update()
     {
-        
-    }
-    
-    IEnumerator SpawnFish()
-    {
         if (fishing.length <= 0)
         {
-            if (fishing.fishCount < 1)
+            int fishNum = Random.Range(0, fishList.Count);
+            Debug.Log(fishNum);
+
+            if (instanceFishTime <= 0)
             {
-                int fishNum = Random.Range(0, fishList.Count + 1);
+                Instantiate(fishList[fishNum], fishingfloatPos.position, Quaternion.identity);
 
-                fishing.fishCount++;
+                instanceFishTime = 0.5f;
             }
-        }
 
-        yield return new WaitForSeconds(1f);
+            if (fishing.length <= 0)
+            {
+                fishing.length = 0.1f;
+            }
+
+            Fishing.instance.UnsetPanel();
+        }
     }
 }

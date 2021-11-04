@@ -49,7 +49,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if(Input.GetAxisRaw("Horizontal") > 0)
         {
-            moveVelocity = Vector3.right;
+            moveVelocity = Vector3.left * -1;
             transform.rotation = new Quaternion(0, 180, 0, 0);
         }
         else if(Input.GetAxisRaw("Vertical") > 0)
@@ -69,13 +69,16 @@ public class PlayerMove : MonoBehaviour
         Vector2 power = new Vector2(0, throwPower);
         fhishingFloat.GetComponent<Rigidbody2D>().gravityScale = 1;
         fhishingFloat.GetComponent<Rigidbody2D>().AddForce(power, ForceMode2D.Impulse);
-        if (this.gameObject.transform.rotation.y == 180)
+        Debug.Log(this.gameObject.transform.rotation.y);
+        if (this.gameObject.transform.eulerAngles.y == 180f)
         {
-            fhishingFloat.GetComponent<Rigidbody2D>().AddForce(Vector2.right * throwPower * 30f);
+            fhishingFloat.GetComponent<Rigidbody2D>().AddForce(Vector2.left * -1 * throwPower * 30f);
+            print("A");
         }
-        else
+        else if(this.gameObject.transform.eulerAngles.y == 0f)
         {
-            fhishingFloat.GetComponent<Rigidbody2D>().AddForce(Vector2.left * throwPower * 30f);
+            fhishingFloat.GetComponent<Rigidbody2D>().AddForce(Vector2.left * throwPower * 30f );
+            print("B");
         }
     }
 
