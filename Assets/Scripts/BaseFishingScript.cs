@@ -6,14 +6,9 @@ public class BaseFishingScript : MonoBehaviour
 {
     public bool cfishing;
     public bool fishing;
-    public bool bite;
+    public bool isBite;
 
-    public float maxLength = 70f;
-    public float length = 0f;
-    public float tention = 0f;
-
-    public float maxPull = 0.47f;
-    public float pulllength = 0.2f;
+    public bool isFishing;
 
     public int fishCount = 0;
 }

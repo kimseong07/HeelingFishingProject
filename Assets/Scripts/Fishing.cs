@@ -7,18 +7,19 @@ public class Fishing : BaseFishingScript
 {
     public static Fishing instance;
 
-
     public GameObject floatPos;
     PlayerMove player;
-    Reel reel;
+    //Reel reel;
 
     public float time = 0f;
     public int randf = 0;
     public int randc = 0;
 
-    public CanvasGroup fishingC;
+    public GameObject mainArea;
+    public GameObject fightArea;
+
     public SpriteRenderer signal;
-    public Image gauge;
+    //public Image gauge;
 
     private void Awake()
     {
@@ -32,15 +33,15 @@ public class Fishing : BaseFishingScript
     void Start()
     {
         player = FindObjectOfType<PlayerMove>();
-        reel = FindObjectOfType<Reel>();
+        //reel = FindObjectOfType<Reel>();
 
         fishing = false;
         cfishing = false;
-        bite = true;
+        isBite = true;
 
         randc = 1;
         randf = 0;
-        length = 0.1f;
+        //length = 0.1f;
     }
 
     void Update()
@@ -48,75 +49,51 @@ public class Fishing : BaseFishingScript
         ReadyFishing();
 
         StartFishing();
-
-        EndFishing();
-
-        if (reel.wheelAngle <= -360)
-        {
-            length -= pulllength;
-
-            tention += 0.03f;
-                
-            reel.wheelAngle = 0;
-        }
-
-        if(length <= 0)
-        {
-            UnsetPanel();
-        }
-
-        if (Input.GetKey(KeyCode.T))
-        {
-            length -= pulllength;
-        }
     }
 
     public void ReadyFishing()
     {
-        if (cfishing && Input.GetKeyDown(KeyCode.Space))
+        if (cfishing && Input.GetKeyDown(KeyCode.Space) && isBite)
         {
             if (fishing)
             {
-                player.playerSpeed = 4f;
-                signal.gameObject.SetActive(false);
-                signal.color = new Color(0,0,0,0);
-
-                randc = 1;
-                randf = 0;
-
-                player.SetFhishingfloat(floatPos.gameObject.transform);
-
-                fishing = false;
+                OnFishing();
             }
             else if (!fishing)
             {
-                player.playerSpeed = 0f;
-                signal.gameObject.SetActive(true);
-
-                player.Fhishingfloat();
-
-                fishing = true;
+                DownFishing();
             }
         }
+    }
+
+    public void OnFishing()
+    {
+        player.playerSpeed = 4f;
+        signal.gameObject.SetActive(false);
+        signal.color = new Color(0, 0, 0, 0);
+
+        randc = 1;
+        randf = 0;
+
+        player.SetFhishingfloat(floatPos.gameObject.transform);
+
+        fishing = false;
+    }
+
+    public void DownFishing()
+    {
+        player.playerSpeed = 0f;
+        signal.gameObject.SetActive(true);
+
+        player.Fhishingfloat();
+
+        fishing = true;
     }
 
     public void StartFishing()
     {
         if (fishing)
         {
-            length += Time.deltaTime / 2f;
-
-            tention -= Time.deltaTime / 15f;
-
-            pulllength += Time.deltaTime / 600f;
-
-            gauge.fillAmount = tention;
-
-            if(tention <= 0)
-            {
-                tention = 0;
-            }
-
             if (time < 5)
             {
                 time += Time.deltaTime;
@@ -132,67 +109,43 @@ public class Fishing : BaseFishingScript
             if (randc == randf)
             {
                 signal.color = Color.red;
+
+                isBite = false;
             }
             else
             {
                 signal.color = Color.green;
             }
 
-            if (randf == randc && Input.GetMouseButtonDown(1) && bite)
+            if (randf == randc && Input.GetKeyDown(KeyCode.Space) && !isBite)
             {
                 SetPanel();
 
-                length = Random.Range(7, 40);
-
-                pulllength = 0.15f;
-
                 time = 5f;
 
-                tention = 0.5f;
+                isFishing = true;
 
-                bite = false;
+                isBite = true;
             }
-
-
-        }
-    }
-
-    public void EndFishing()
-    {
-        if (length >= maxLength)
-        {
-            UnsetPanel();
-        }
-
-        if (randc != randf && length > maxLength - 10f)
-        {
-            length = 0f;
-        }
-
-        if (pulllength >= maxPull)   
-        {
-            pulllength = 0.48f;
         }
     }
 
 
     public void SetPanel()
     {
-        fishingC.alpha = 1;
+        fightArea.SetActive(true);
+        mainArea.SetActive(false);
     }
 
     public void UnsetPanel()
     {
-        fishingC.alpha = 0;
-
         time = 0f;
         randc = 1;
         randf = 0;
-        pulllength = 0.3f;
-        tention = 0.5f;
         fishCount = 0;
 
-        bite = true;
+        fightArea.SetActive(false);
+        mainArea.SetActive(true);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

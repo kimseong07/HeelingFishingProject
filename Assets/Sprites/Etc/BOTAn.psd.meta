@@ -14,6 +14,9 @@ TextureImporter:
   - first:
       213: 1598478895252808546
     second: BOTAn_3
+  - first:
+      213: -3533961619360102245
+    second: BOTAn_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -194,6 +197,27 @@ TextureImporter:
       bones: []
       spriteID: 263a08c0610fe2610800000000000000
       internalID: 1598478895252808546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOTAn_4
+      rect:
+        serializedVersion: 2
+        x: 681
+        y: 30
+        width: 120
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b984d2481a8d4fec0800000000000000
+      internalID: -3533961619360102245
       vertices: []
       indices: 
       edges: []
