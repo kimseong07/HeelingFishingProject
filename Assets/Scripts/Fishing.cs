@@ -142,7 +142,10 @@ public class Fishing : BaseFishingScript
         time = 0f;
         randc = 1;
         randf = 0;
-        fishCount = 0;
+
+        isBite = true;
+
+        OnFishing();
 
         fightArea.SetActive(false);
         mainArea.SetActive(true);

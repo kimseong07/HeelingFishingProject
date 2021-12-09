@@ -6,6 +6,7 @@ public class PlayerMove : MonoBehaviour
 {
     public float playerSpeed = 4f;
     public int playerHP = 0;
+    public int playerDamage = 0;
 
     CameraMove cam;
 
@@ -70,6 +71,15 @@ public class PlayerMove : MonoBehaviour
             moveVelocity = Vector3.down;
         }
 
+        if (Input.GetKey(KeyCode.LeftAlt))
+        {
+            playerSpeed = 8;
+        }
+        else
+        {
+            playerSpeed = 4;
+        }
+
         transform.position += moveVelocity * playerSpeed * Time.deltaTime;
     }
 
@@ -82,12 +92,10 @@ public class PlayerMove : MonoBehaviour
         if (this.gameObject.transform.eulerAngles.y == 180f)
         {
             fishingFloat.GetComponent<Rigidbody2D>().AddForce(Vector2.left * -1 * throwPower * 30f);
-            print("A");
         }
         else if(this.gameObject.transform.eulerAngles.y == 0f)
         {
             fishingFloat.GetComponent<Rigidbody2D>().AddForce(Vector2.left * throwPower * 30f );
-            print("B");
         }
     }
 

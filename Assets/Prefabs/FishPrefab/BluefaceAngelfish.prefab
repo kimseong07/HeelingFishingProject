@@ -147,8 +147,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainFish: {fileID: 1105227965747589470}
   onFish: 0
-  curFishHp: 2
-  maxFishHp: 2
+  curFishHp: 3
+  maxFishHp: 3
   damage: 1
 --- !u!1 &3546182983420530058
 GameObject:

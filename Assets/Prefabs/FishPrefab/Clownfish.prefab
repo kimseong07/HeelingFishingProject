@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 9dccead43ec41304188b014bfc6ea337, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -147,8 +147,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainFish: {fileID: 1105227965747589470}
   onFish: 0
-  curFishHp: 2
-  maxFishHp: 2
+  curFishHp: 3
+  maxFishHp: 3
   damage: 1
 --- !u!1 &4628652343640317389
 GameObject:
