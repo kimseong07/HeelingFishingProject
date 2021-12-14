@@ -8,18 +8,24 @@ public class TurnManager : MonoBehaviour
     static TurnManager _instance;
     public static TurnManager Instance { get { return _instance; } }
 
-    LakeScritpts lake;
-
     public bool playerTurn = false;
 
     public Button attackBtn;
 
     public PlayerMove player;
 
+    public GameObject startScene;
+    public GameObject mainScene;
+
+    private void Awake()
+    {
+        _instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        lake = FindObjectOfType<LakeScritpts>();
+
     }
 
     // Update is called once per frame
@@ -37,6 +43,16 @@ public class TurnManager : MonoBehaviour
 
     public void Attack()
     {
-        lake.instFishList[0].GetComponent<FishScript>().curFishHp -= player.playerDamage;
+        LakeScritpts.Instance.instFishList[0].GetComponent<FishScript>().curFishHp -= player.playerDamage;
+    }
+    public void StartBtn()
+    {
+        startScene.SetActive(false);
+        mainScene.SetActive(true);
+    }
+
+    public void EndBtn()
+    {
+        Application.Quit();
     }
 }

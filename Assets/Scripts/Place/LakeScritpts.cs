@@ -23,7 +23,7 @@ public class LakeScritpts : MonoBehaviour
 
     private int fishNum = 0;
 
-    private int instfish = 0;
+    public int instfish = 0;
     private void FixedUpdate()
     {
         if (instanceFishTime >= 0)
@@ -34,18 +34,20 @@ public class LakeScritpts : MonoBehaviour
 
     private void Awake()
     {
-
+        _instance = this;
     }
 
     void Update()
     {
         if (Fishing.instance.isFishing)
         {
+            instfish = 0;
             Imgfish();
             FishHp();
 
             if (instFishList[0].GetComponent<FishScript>().curFishHp <= 0)
             {
+                instFishList.Clear();
                 if (instfish < 1)
                 {
                     if (instanceFishTime <= 0)
@@ -73,6 +75,8 @@ public class LakeScritpts : MonoBehaviour
                 GameObject fishobj = Instantiate(fishList[fishNum], fishSprite.transform.position, Quaternion.identity);
 
                 instFishList.Add(fishobj);
+
+                fishobj.transform.localScale = new Vector3(3f,3f,1f);
 
                 instanceFishTime = 0.5f;
             }

@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    private static PlayerMove _instance;
+    public static PlayerMove Instance
+    {
+        get { return _instance; }
+    }
+
     public float playerSpeed = 4f;
     public int playerHP = 0;
     public int playerDamage = 0;
@@ -17,6 +23,10 @@ public class PlayerMove : MonoBehaviour
     public GameObject fishingFloat;
     public float throwPower;
 
+    private void Awake()
+    {
+        _instance = this;
+    }
     void Start()
     {
         cam = FindObjectOfType<CameraMove>();
@@ -52,26 +62,26 @@ public class PlayerMove : MonoBehaviour
     {
         moveVelocity = Vector3.zero;
 
-        if (Input.GetAxisRaw("Horizontal") < 0)
+        if (Input.GetAxisRaw("Horizontal") < 0 && !Fishing.instance.fishing)
         {
             moveVelocity = Vector3.left;
             transform.rotation = new Quaternion(0, 0, 0, 0);
         }
-        else if(Input.GetAxisRaw("Horizontal") > 0)
+        else if(Input.GetAxisRaw("Horizontal") > 0 && !Fishing.instance.fishing)
         {
             moveVelocity = Vector3.left * -1;
             transform.rotation = new Quaternion(0, 180, 0, 0);
         }
-        else if(Input.GetAxisRaw("Vertical") > 0)
+        else if(Input.GetAxisRaw("Vertical") > 0 && !Fishing.instance.fishing)
         {
             moveVelocity = Vector3.up;
         }
-        else if(Input.GetAxisRaw("Vertical") < 0)
+        else if(Input.GetAxisRaw("Vertical") < 0 && !Fishing.instance.fishing)
         {
             moveVelocity = Vector3.down;
         }
 
-        if (Input.GetKey(KeyCode.LeftAlt))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             playerSpeed = 8;
         }

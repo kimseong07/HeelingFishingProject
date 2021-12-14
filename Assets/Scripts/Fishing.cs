@@ -8,7 +8,6 @@ public class Fishing : BaseFishingScript
     public static Fishing instance;
 
     public GameObject floatPos;
-    PlayerMove player;
     //Reel reel;
 
     public float time = 0f;
@@ -21,6 +20,8 @@ public class Fishing : BaseFishingScript
     public SpriteRenderer signal;
     //public Image gauge;
 
+    public GameObject mainCam;
+
     private void Awake()
     {
         if(instance != null)
@@ -32,7 +33,6 @@ public class Fishing : BaseFishingScript
 
     void Start()
     {
-        player = FindObjectOfType<PlayerMove>();
         //reel = FindObjectOfType<Reel>();
 
         fishing = false;
@@ -68,24 +68,24 @@ public class Fishing : BaseFishingScript
 
     public void OnFishing()
     {
-        player.playerSpeed = 4f;
+        PlayerMove.Instance.playerSpeed = 4f;
         signal.gameObject.SetActive(false);
         signal.color = new Color(0, 0, 0, 0);
 
         randc = 1;
         randf = 0;
 
-        player.SetFhishingfloat(floatPos.gameObject.transform);
+        PlayerMove.Instance.SetFhishingfloat(floatPos.gameObject.transform);
 
         fishing = false;
     }
 
     public void DownFishing()
     {
-        player.playerSpeed = 0f;
+        PlayerMove.Instance.playerSpeed = 0f;
         signal.gameObject.SetActive(true);
 
-        player.Fhishingfloat();
+        PlayerMove.Instance.Fhishingfloat();
 
         fishing = true;
     }
@@ -135,6 +135,8 @@ public class Fishing : BaseFishingScript
     {
         fightArea.SetActive(true);
         mainArea.SetActive(false);
+        //Ä«¸Þ¶ó
+        mainCam.transform.position = new Vector3(0, 0, -20f);
     }
 
     public void UnsetPanel()
@@ -142,6 +144,9 @@ public class Fishing : BaseFishingScript
         time = 0f;
         randc = 1;
         randf = 0;
+
+        fishCount = 0;
+        isFishing = false;
 
         isBite = true;
 

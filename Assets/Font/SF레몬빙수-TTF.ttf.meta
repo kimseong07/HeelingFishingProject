@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: fd0db14b2902d15448ac451378881bf6
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - SF_IceLemon
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: ca920581103655b47aba28da02617396, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
